@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE recipe API "api_recipe.dtd">
+<!--
+	API Recipe XML
+	Created by Christopher Klapp on 2009-12-04.
+	Copyright (c) 2009 klappy. All rights reserved.
+-->
+
+<script api_key="a1b2s7c8d3f4g5h6" signature="md5hash" id="1234567890">
+	<request type="recipe" name="custom_translation" action="assign">
+		<object name="original_text" action="assign" value="this is a test"/>
+		<object name="language_to" action="assign" value="fr"/>
+		<object name="detect_google" action="assign">
+			<method name="translate_detect" action="eval">
+				<param name="provider" value="Google" action="eval" />
+				<param name="text"><object name="original_text" action="eval" /></param>
+			</method>
+		</object>
+		<object name="detect_bing" action="assign">
+			<method name="translate_detect" action="eval">
+				<param name="provider" value="Bing" action="eval" />
+				<param name="text"><object name="original_text" action="eval" /></param>
+			</method>
+		</object>
+		<method name="translate_detect" action="assign">
+			<param name="provider" default="Google" action="assign" />
+			<param name="text" action="assign"/>
+			<translate>
+				<param name="provider" action="eval" />
+				<detect>
+					<param name="text" action="eval" />
+				</detect>
+			</translate>			
+		</method>
+		<method name="translate_text" action="assign">
+			<param name="provider" default="Google" action="assign" />
+			<!--<param name="text" action="assign"/> not passing original text since directly called
+			<param name="to" action="assign" />-->
+			<param name="language_from" action="assign" default="">
+			<translate>
+				<param name="provider" action="eval" />
+				<text>
+					<param name="to">
+						<object name="language_to" action="eval" value="fr"/>
+					</param>
+					<param name="language_from" action="eval" />
+					<param name="text">
+						<object name="original_text" action="eval" />
+					</param>
+				</text>
+			</translate>			
+		</method>
+		<if>
+			<clause type="comparison">
+				<object name="detect_google" action="eval" attribute="confidence" />
+				<operand value=">"/>
+				<float value="0.599"/>
+			</clause>
+			<do>
+				<method name="translate_text" action="eval">
+					<param name="provider" value="Google" />
+					<param name="language_from">
+						<object name="detect_google" action="eval" attribute="language" />
+					</param>
+				</method>
+			</do>
+			<elsif>
+				<clause type="comparison">
+					<object name="detect_bing" action="eval" attribute="confidence" />
+					<operand value=">" />
+					<float value="0.599" />
+				</clause>
+				<do>
+					<method name="translate_text" action="eval">
+						<param name="provider" value="Bing" />
+						<param name="language_from">
+							<object name="detect_bing" action="eval" attribute="language" />
+						</param>
+					</method>
+				</do>
+			</elsif>
+			<else>
+				<do>
+					<method name="translate_text" action="eval">
+						<param name="provider" value="Lambda" />
+					</method>
+				</do>
+			</else>
+		</if>
+	</request>
+	<response>
+		<!-- TODO: DEFINE RESPONSE -->
+	</response>
+</recipe>
+
+<!-- 
+
+-->

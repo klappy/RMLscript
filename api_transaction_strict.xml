@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE transaction API "api_transaction_strict.dtd">
+<!--
+	API Transaction XML
+	Created by Christopher Klapp on 2009-12-04.
+	Copyright (c) 2009 klappy. All rights reserved.
+-->
+
+<transaction api_key="a1b2s7c8d3f4g5h6" signature="md5hash" id="1234567890">
+	<info verbose="true">
+		<status code="1" message="okay" />
+		<verbose enabled="true">
+			<timestamp unix="12309487902" standard="200912031243" us="December 3, 2009 12:43 PM" />
+			<host ip="x.x.x.x" uri_request="api.apiwarehouse.com/rest/?params=etc" />
+			<client ip="x.x.x.x" uri_referrer="www.somesite.com/the_page_calling" />
+			<params />
+		</verbose>
+	</info>
+	<request>
+		<translate provider="Google">
+			<detect text="this is a test" />
+			<text to="fr" value="this is a test" />
+		</translate>
+	</request>
+	<response>
+		<translate provider="Google">
+			<detect language="en" confidence="0.123" isReliable="false" />
+			<text from="en" to="fr" input="this is a test" output="Ceci est un test" />
+		</translate>
+	</response>
+</transaction>
+
+<!-- 
+	This example is more explicit and requires a verbose document type definition
+	While easier to view to the human eye and lighter weight it will require more configuration and mirroring of the organization and structure of the actual api code.
+-->

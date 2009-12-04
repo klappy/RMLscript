@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE transaction API "api_transaction_loose.dtd">
+<!--
+	API Transaction XML
+	Created by Christopher Klapp on 2009-12-04.
+	Copyright (c) 2009 klappy. All rights reserved.
+-->
+
+<root type="transaction">
+	<data type="info">
+		<info name="status" value="">
+	</data>
+	<data type="request">
+		<methods>
+			<method namespace="translate" name="detect">
+				<param name="text" value="this is a test" />
+				<param name="provider" value="Google" />
+			</method>
+			<method namespace="translate" name="text">
+				<param name="provider" value="Google" />
+				<param name="text" value="this is a test" />
+				<param name="to" value="fr" />
+			</method>
+		</methods>
+	</data>	
+	<data type="response">
+		<methods>
+			<method namespace="translate" name="detect">
+				<param name="text" value="this is a test" />
+			</method>
+			<method namespace="translate" name="text">
+				<param name="provider" value="Google" />
+				<param name="from" value="en" />
+				<param name="to" value="fr" />
+				<param name="text" value="this is a test" />
+			</method>
+		</methods>
+	</data>
+</root>
+
+<!--
+	This example is less explicit and less structured while being more loose
+	While harder to view with the human eye it is more flexible and adapts well to changes with less configuration to mirror the organization and structure of the actual api code.
+-->
